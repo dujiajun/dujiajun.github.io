@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.dujiajun.site","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="看过《杜非立上进记》的人都知道，我之前运营过C++难民营（学科群）QQ群、选课交流群，又在水源社区先后担任站务和技术负责人，现在又在开发运营选课社区。这些社群、社区运营都取得了非常好的用户量和活跃度。 在今年，我还和中科大南七茶馆论坛的开发者交流过水源社区运维经验，潜入了华师大ECNU.IM论坛观察，和USTC评课社区开发者交流过相关经验，还指导了北师大的同学用SJTU选课社区的代码部署BNU选课">
+<meta property="og:type" content="article">
+<meta property="og:title" content="当我在运营产品时，我在做什么？">
+<meta property="og:url" content="http://blog.dujiajun.site/2022/10/17/%E5%BD%93%E6%88%91%E5%9C%A8%E8%BF%90%E8%90%A5%E4%BA%A7%E5%93%81%E6%97%B6%EF%BC%8C%E6%88%91%E5%9C%A8%E5%81%9A%E4%BB%80%E4%B9%88%EF%BC%9F/index.html">
+<meta property="og:site_name" content="一无是处杜某某">
+<meta property="og:description" content="看过《杜非立上进记》的人都知道，我之前运营过C++难民营（学科群）QQ群、选课交流群，又在水源社区先后担任站务和技术负责人，现在又在开发运营选课社区。这些社群、社区运营都取得了非常好的用户量和活跃度。 在今年，我还和中科大南七茶馆论坛的开发者交流过水源社区运维经验，潜入了华师大ECNU.IM论坛观察，和USTC评课社区开发者交流过相关经验，还指导了北师大的同学用SJTU选课社区的代码部署BNU选课">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-10-16T16:42:40.000Z">
+<meta property="article:modified_time" content="2022-10-16T16:42:40.000Z">
+<meta property="article:author" content="杜某某">
+<meta property="article:tag" content="SJTU">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://blog.dujiajun.site/2022/10/17/%E5%BD%93%E6%88%91%E5%9C%A8%E8%BF%90%E8%90%A5%E4%BA%A7%E5%93%81%E6%97%B6%EF%BC%8C%E6%88%91%E5%9C%A8%E5%81%9A%E4%BB%80%E4%B9%88%EF%BC%9F/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://blog.dujiajun.site/2022/10/17/%E5%BD%93%E6%88%91%E5%9C%A8%E8%BF%90%E8%90%A5%E4%BA%A7%E5%93%81%E6%97%B6%EF%BC%8C%E6%88%91%E5%9C%A8%E5%81%9A%E4%BB%80%E4%B9%88%EF%BC%9F/","path":"2022/10/17/当我在运营产品时，我在做什么？/","title":"当我在运营产品时，我在做什么？"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>当我在运营产品时，我在做什么？ | 一无是处杜某某</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?34f7210ec82752a9bbc5d28884db07fb"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">一无是处杜某某</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">或许是东川路第一老实人</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">杜某某</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.dujiajun.site/2022/10/17/%E5%BD%93%E6%88%91%E5%9C%A8%E8%BF%90%E8%90%A5%E4%BA%A7%E5%93%81%E6%97%B6%EF%BC%8C%E6%88%91%E5%9C%A8%E5%81%9A%E4%BB%80%E4%B9%88%EF%BC%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="杜某某">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一无是处杜某某">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="当我在运营产品时，我在做什么？ | 一无是处杜某某">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          当我在运营产品时，我在做什么？
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-10-17 00:42:40" itemprop="dateCreated datePublished" datetime="2022-10-17T00:42:40+08:00">2022-10-17</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>看过《杜非立上进记》的人都知道，我之前运营过C++难民营（学科群）QQ群、选课交流群，又在水源社区先后担任站务和技术负责人，现在又在开发运营选课社区。这些社群、社区运营都取得了非常好的用户量和活跃度。</p>
+<p>在今年，我还和中科大南七茶馆论坛的开发者交流过水源社区运维经验，潜入了华师大ECNU.IM论坛观察，和USTC评课社区开发者交流过相关经验，还指导了北师大的同学用SJTU选课社区的代码部署BNU选课社区。和这些项目相比较的话，水源社区无疑比其他几个论坛高了1到2个数量级的热度，而师出同门的选课社区在SJTU也比在BNU热度高。</p>
+<p>碰巧的是，在暑假实习中，我在没有预先选择的情况下，被分到字节跳动TikTok的用户增长服务端开发团队，在开发之余也学习了一番用户增长理论。通过理论结合实际的分析，我想了想，做成功这些产品，还是有一些原因的。</p>
+<p>用户增长，主要做几件事情：拉新、促活、内容激励。拉新，指获得新用户，关注指标通常为DNU（daily new user）。促活，指促进已注册用户活跃度，关注指标通常为DAU（daily active user）。内容激励，指激励用户发布内容，间接增长DAU和DNU。为了拉新促活，往往需要布置一些触点用来触达用户，比如弹窗、挂件、推送等。在《增长黑客》里提到，好产品是增长的根本，也就是要打造产品的不可或缺性。除此之外，也有观点认为，用户增长&#x3D;动力-阻力。动力，指用户使用产品的动机，比如产品的内容对他有很大吸引力等。阻力，指阻碍用户注册的因素，比如用户注册的流程繁琐等。</p>
+<p>在运营C++学科辅导群时，同学加群的意愿就是获得作业和考试的辅导。那我就做好内容，提前录制了一些讲解视频，整理了一些文档和资料放在群文件。这样同学进群的时候就有东西可以看。等到期末考试前，我在群里基本上是有问必答，所以这群名气出去了有很多同学愿意加群来听和问问题。</p>
+<p>在运营选课交流群时，同学加群的意愿是询问课程情况，以便选课。没有选课群的时候，大家会在新生群问。一些学生组织、社团内部也会有自己的总结。我们在选课群之前，就有同学率先收集了一份问卷资料，大概200份课程情况问卷并整理出来做成PDF。这个PDF就对同学很有吸引力，我们把它放在群里。然后我们立了群规，禁止非选课事项的讨论、禁止询问明文通知的内容。因为这种群人很多，有的同学就可能问一些别的事情，这样会冲淡群氛围，影响后续管理。最后是按时发布教务处关于选课的通知，提醒及时选课。选课期间我们在新生群说，选课群里有资料可以看，有学长学姐可以问，就达到了触达的效果，吸引了一大批新生进群。而为了促活，选课群定期清理不改群昵称和长期没说话的同学。后来又发了2次问卷，整理出了400多条课程点评。</p>
+<p>在运营水源社区时，主要抓的触达和促活。一开始是上海交通大学发了一篇推送，面向全校公测新水源社区。后来逐步增加了官网下方、迎新网和综合信息网的入口链接，看上去效果其实一般。我们一直想在新生录取通知书里放广告，未果，不过今年有机会在交我办app的新生模块那加了个入口，效果非常明显，预估有70%的22级新生都注册了水源。另外是抓热点事件，这种机遇比较难得。20年2月公测到9月，靠着自然增长一共注册了一万个用户。而9月的七彩花坊事件，直接带来了用户量翻倍。我们趁着用户量增加的同时，及时调整了分类，主动编撰导入优质的信息资料（比如分流、转专业、保研等），增加了用户粘性。22年3月，由于疫情封校，直接增加了5-10倍的日活量。在这期间，开辟了防控信息专楼，收集整理了每日最新进展，很多用户也以非官方身份发布了各种信息。还有一件事是降低用户入口阻力。一开始即便我们有jAccount登录，也要去验证邮箱获取验证码。我寻思这多此一举，后来直接拿掉了这个流程，jAccount登录之后就直接进主页，实现一键登录。这一点在封校流量突增的时候表现非常好，没有拖后腿。至于运营举办的各种活动，我感觉从促活效果上没有那么明显，不过在奖励活跃用户这点来说还是有用的。在促活方面，一开始首页按照传统论坛定为“分类”，但是我个人会喜欢以时间线排序不区分分类。后来有一次在用户建议下把全站用户的首页都改成了“最新”，日活立竿见影提高了5倍。分析之，首页为类别，就不会显示话题，用户不知道到底有哪些可以阅读、可以回复，一定要选择一个分类才行，而且只有这个分类。首页为最新，用户就少了一步，可以直接看到所有话题，开屏就能进入话题阅读和回复。</p>
+<p>在运营选课社区时，最大的成功点就是之前整理的400条点评。我们在上线运营之前，就导入了这400多条问卷点评作为冷启动素材。这样用户访问的时候就能看到内容，而不会因为没有内容而流失。在降低门槛方面，我也考虑了很多。比如，服务器一定要在境内，这样不会有网络问题。不能使用GitHub，因为要额外注册。接入jAccount实现一键登录访问。在推广方面，在选课社区上线前，选课交流群已经发展到了2个2000人规模的群。我们在群里直接推广了社区链接。后来由于积累的点评很多，对新生很有价值，其他组织也会在其公众号上主动推广链接。在促活方面，主要关注的是点评的数量和质量。选课社区引入了积分机制，根据点评数量和赞计算积分，而积分和交大传承合作，可以兑换传承的积分，从而在传承下载文档。</p>
+<p>接下来是关于其他平台的一些锐评。</p>
+<p>和中科大的南七茶馆开发者讨论后，我觉得影响二者发展的最大因素的学校态度。水源社区是交大网宣办主动推动建设的，网络信息中心给服务器和带宽资源，宣传部给门户入口资源，相当于是含着金钥匙出身。南七茶馆是学生民间运营的，学校对其不看好，不提供资源。这样就导致南七茶馆的触达面小，加上没法使用学校的身份认证系统，注册也比较麻烦，所以用户量和日活会差很大一截。从运营上考虑，一些活动和版面设计其实没有太大影响，完全可以顺着用户规模增加逐步调整。我当时和他们讲，这种正经的校园论坛，就应该和学校合作，放弃反审查的不合作思维。运营校内论坛对学校来说是好事，因为很多事情就可以内部消化，不外溢到公共平台，维护了学校的形象。华师大的ECNU.IM也是一样的问题，没有触达到用户，绝大多数的在校生不知道有这么个东西存在。</p>
+<p>当然，水源社区的发展和无可奉告有关系。无可奉告是交大同学的大作业，后来转换成了实际投用的匿名树洞。无可奉告从2020年12月上线到2021年4月关服，不到半年的时间内有一万多用户发布了两万多个树洞和三十九万个回复。在我看来，无可奉告是非常成功的。除了匿名树洞这个自带吸引人的要素外，他们做好了几点。第一，提供了安卓iOS双端客户端。这一点对于商业平台来说是必要的，而对于学生开发项目来说代价非常高。无可奉告的团队能够开发出2个平台的客户端，并且都是原生框架，体验非常好。第二，在微信公众号注册并发布了上线推送。微信推送在朋友圈能够触达很多学生、老师和校友，而且从微信的屏蔽规则来说也比另外的网站好。这样在当天就有大量的注册用户，顺利实现冷启动的惊险一跃。就我个人而言，无可奉告由于一开始热度高，内容快而且猎奇，我自己就想着没事刷刷，所以很容易产生用户粘性。在运营方面，无可奉告秉持陶片放逐法，扼杀了很多钓鱼佬，虽然很有争议，但是保障了内容质量。等到后来无可奉告因为监管原因不再运营之后，水源社区才接住了校内的大量流量。如果无可奉告能运营到今年，那么水源社区必然不会有目前的日活。</p>
+<p>无可奉告关闭之后，断锚和亦可赛艇横空出世，都试图吃下匿名树洞的蛋糕，但是都有着致命问题，就是没有完善的客户端。断锚是UNI-APP开发的跨端app，安卓端本身能正常用，但是开发者保持匿名，不上线App Store。亦可赛艇客户端体验还可以，但是上线App Store被拒。所以他们都没法在iOS用户中普及。断锚一开始只在某个群里发了链接，触达用户太少，冷启动失败。亦可赛艇冷启动缓慢，如果能够解决iOS问题，我觉得还是能够正常发展，只是缺乏机遇。另外的问题是，亦可赛艇管理员在运营方面经验不够充分，上线一年多以来至今没有出台明确的管理规范。很多用户打开App的第一眼印象就是不堪入目，印象不是很好。水源的指导老师梁女士曾说，要开屏即见正能量。在我看来正能量有点夸张了，但是要开屏就能留住用户，能够让用户有继续探索的欲望，特别是激发用户的参与。</p>
+<p>交大柠檬是另外一个平台。它是一些同学的创业项目，属于小清新风格。交大柠檬和水源几乎是同期上线的，都是2019年底，但是生态位不一样。水源是标准的论坛，不额外在功能上有独特定制。柠檬是自己开发的小程序，可以发展树洞以外的功能，比如定制了二手交易和拼车功能，这个体验会比水源好。交大柠檬另辟蹊径从生态位出发，特色在二手交易、失物招领、拼车和教务处通知，也狠吃了一波疫情流量。从触达上考虑，柠檬本身就在微信端内，只要有二维码就很好触达，也可以充分利用朋友圈转发。</p>
+<p>而北师大的BNU选课社区，在我看来属于运营方缺乏经验。当时这个负责同学找到我咨询SJTU选课社区的代码如何部署，我给他讲的是，技术问题是最简单的问题，运营和法律上的问题才是最头疼的。BNU选课社区去掉了用户账户部分，所以网页上是无需登录的匿名提交。这样在很多人看来是反审查斗士，保护了大家的隐私。但是在我看来是没有办法将发表点评这件事转化到用户的成就感上，没有办法引入积分奖励机制，也没有办法统计用户数量。另外，他们没有做好冷启动的过程，在几乎没有存量点评的时候就发布上线。用户访问社区时，基本没有想要的点评，很快就流失了。再加上可能的触达问题，BNU上线接近半年了，对于3000多门课只有200多条点评，对未来的新用户还是缺乏吸引力的。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/SJTU/" rel="tag"># SJTU</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/11/01/%E5%B7%A5%E7%A7%91%E8%AF%95%E9%AA%8C%E7%8F%AD%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%E7%9A%84%E8%90%BD%E5%B9%95%E5%86%99%E5%9C%A820%E7%BA%A7%E8%BD%AC%E4%B8%93%E4%B8%9A%E7%BB%93%E6%9D%9F%E7%9A%84%E6%84%9F%E6%82%9F/" rel="prev" title="工科试验班第二阶段的落幕——写在20级转专业结束的感悟">
+                  <i class="fa fa-angle-left"></i> 工科试验班第二阶段的落幕——写在20级转专业结束的感悟
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">杜某某</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
