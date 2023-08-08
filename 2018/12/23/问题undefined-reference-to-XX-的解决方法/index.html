@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.dujiajun.site","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在G++（Code Blocks自带编译器）中，有时会报错undefined reference to &#39;XX&#39;。而在VS中相同问题的可能报错“无法解析的外部符号，xxxx，该符号在函数XX中被引用”。需要明确的是，这个问题属于链接错误，不是编译错误，因此核心思想是看函数是不是只声明了而没有定义，和函数内部的代码无关。具体原因有几种，下面将分别列举原因与解决方法。 第一种情况：没写">
+<meta property="og:type" content="article">
+<meta property="og:title" content="问题undefined reference to &#39;XX&#39;的解决方法">
+<meta property="og:url" content="http://blog.dujiajun.site/2018/12/23/%E9%97%AE%E9%A2%98undefined-reference-to-XX-%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="一无是处杜某某">
+<meta property="og:description" content="在G++（Code Blocks自带编译器）中，有时会报错undefined reference to &#39;XX&#39;。而在VS中相同问题的可能报错“无法解析的外部符号，xxxx，该符号在函数XX中被引用”。需要明确的是，这个问题属于链接错误，不是编译错误，因此核心思想是看函数是不是只声明了而没有定义，和函数内部的代码无关。具体原因有几种，下面将分别列举原因与解决方法。 第一种情况：没写">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://blog.dujiajun.site/2018/12/23/%E9%97%AE%E9%A2%98undefined-reference-to-XX-%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/062613435301001.png">
+<meta property="og:image" content="http://blog.dujiajun.site/2018/12/23/%E9%97%AE%E9%A2%98undefined-reference-to-XX-%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/062613435301002.png">
+<meta property="og:image" content="http://blog.dujiajun.site/2018/12/23/%E9%97%AE%E9%A2%98undefined-reference-to-XX-%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/062613435301003.png">
+<meta property="og:image" content="http://blog.dujiajun.site/2018/12/23/%E9%97%AE%E9%A2%98undefined-reference-to-XX-%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/062613435301004.png">
+<meta property="og:image" content="http://blog.dujiajun.site/2018/12/23/%E9%97%AE%E9%A2%98undefined-reference-to-XX-%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/062613435301005.png">
+<meta property="og:image" content="http://blog.dujiajun.site/2018/12/23/%E9%97%AE%E9%A2%98undefined-reference-to-XX-%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/062613435301006.png">
+<meta property="og:image" content="http://blog.dujiajun.site/2018/12/23/%E9%97%AE%E9%A2%98undefined-reference-to-XX-%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/062613435301007.png">
+<meta property="og:image" content="http://blog.dujiajun.site/2018/12/23/%E9%97%AE%E9%A2%98undefined-reference-to-XX-%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/062613435301008.png">
+<meta property="og:image" content="http://blog.dujiajun.site/2018/12/23/%E9%97%AE%E9%A2%98undefined-reference-to-XX-%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/062613435301009.png">
+<meta property="og:image" content="http://blog.dujiajun.site/2018/12/23/%E9%97%AE%E9%A2%98undefined-reference-to-XX-%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/062613435301010.png">
+<meta property="article:published_time" content="2018-12-23T05:39:13.000Z">
+<meta property="article:modified_time" content="2018-12-23T05:39:13.000Z">
+<meta property="article:author" content="杜某某">
+<meta property="article:tag" content="资料">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.dujiajun.site/2018/12/23/%E9%97%AE%E9%A2%98undefined-reference-to-XX-%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/062613435301001.png">
+
+
+<link rel="canonical" href="http://blog.dujiajun.site/2018/12/23/%E9%97%AE%E9%A2%98undefined-reference-to-XX-%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://blog.dujiajun.site/2018/12/23/%E9%97%AE%E9%A2%98undefined-reference-to-XX-%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/","path":"2018/12/23/问题undefined-reference-to-XX-的解决方法/","title":"问题undefined reference to 'XX'的解决方法"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>问题undefined reference to 'XX'的解决方法 | 一无是处杜某某</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?34f7210ec82752a9bbc5d28884db07fb"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">一无是处杜某某</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">或许是东川路第一老实人</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%A7%8D%E6%83%85%E5%86%B5%EF%BC%9A%E6%B2%A1%E5%86%99main%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">第一种情况：没写main函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90"><span class="nav-number">1.1.</span> <span class="nav-text">问题分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">解决方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%A7%8D%E6%83%85%E5%86%B5%EF%BC%9A%E5%B7%A5%E7%A8%8B%E6%96%87%E4%BB%B6%E9%85%8D%E7%BD%AE%E9%94%99%E8%AF%AF"><span class="nav-number">2.</span> <span class="nav-text">第二种情况：工程文件配置错误</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90-1"><span class="nav-number">2.1.</span> <span class="nav-text">问题分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95-1"><span class="nav-number">2.2.</span> <span class="nav-text">解决方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%A7%8D%E6%83%85%E5%86%B5%EF%BC%9A%E5%87%BD%E6%95%B0%E7%9A%84%E5%A3%B0%E6%98%8E%E5%92%8C%E5%AE%9A%E4%B9%89%E4%B8%8D%E5%8C%B9%E9%85%8D"><span class="nav-number">3.</span> <span class="nav-text">第三种情况：函数的声明和定义不匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90-2"><span class="nav-number">3.1.</span> <span class="nav-text">问题分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95-2"><span class="nav-number">3.2.</span> <span class="nav-text">解决方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E7%A7%8D%E6%83%85%E5%86%B5%EF%BC%9A%E7%B1%BB%E6%A8%A1%E6%9D%BF%E7%9A%84%E5%87%BD%E6%95%B0%E5%A3%B0%E6%98%8E%E5%92%8C%E5%AE%9A%E4%B9%89%E5%88%86%E7%A6%BB"><span class="nav-number">4.</span> <span class="nav-text">第四种情况：类模板的函数声明和定义分离</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90-3"><span class="nav-number">4.1.</span> <span class="nav-text">问题分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95-3"><span class="nav-number">4.2.</span> <span class="nav-text">解决方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E4%B8%AD%E6%83%85%E5%86%B5%EF%BC%9A%E7%B1%BB%E6%A8%A1%E6%9D%BF%E7%9A%84%E5%8F%8B%E5%85%83%E7%9A%84%E5%A3%B0%E6%98%8E"><span class="nav-number">5.</span> <span class="nav-text">第五中情况：类模板的友元的声明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90-4"><span class="nav-number">5.1.</span> <span class="nav-text">问题分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95-4"><span class="nav-number">5.2.</span> <span class="nav-text">解决方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">杜某某</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.dujiajun.site/2018/12/23/%E9%97%AE%E9%A2%98undefined-reference-to-XX-%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="杜某某">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一无是处杜某某">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="问题undefined reference to 'XX'的解决方法 | 一无是处杜某某">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          问题undefined reference to 'XX'的解决方法
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-12-23 13:39:13" itemprop="dateCreated datePublished" datetime="2018-12-23T13:39:13+08:00">2018-12-23</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>在G++（Code Blocks自带编译器）中，有时会报错<code>undefined reference to &#39;XX&#39;</code>。而在VS中相同问题的可能报错“无法解析的外部符号，xxxx，该符号在函数XX中被引用”。需要明确的是，这个问题属于链接错误，不是编译错误，因此核心思想是看函数是不是只声明了而没有定义，和函数内部的代码无关。具体原因有几种，下面将分别列举原因与解决方法。</p>
+<h2 id="第一种情况：没写main函数"><a href="#第一种情况：没写main函数" class="headerlink" title="第一种情况：没写main函数"></a>第一种情况：没写main函数</h2><h3 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h3><p>报错信息为：<code>undefine reference to &#39;WinMain&#39;</code>。</p>
+<img src="/2018/12/23/%E9%97%AE%E9%A2%98undefined-reference-to-XX-%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/062613435301001.png" class="">
+
+<p>看到这个报错，只有一种情况，就是没写<code>main</code>函数，找不到可执行程序的入口。</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>在程序中写上<code>main</code>函数即可。</p>
+<h2 id="第二种情况：工程文件配置错误"><a href="#第二种情况：工程文件配置错误" class="headerlink" title="第二种情况：工程文件配置错误"></a>第二种情况：工程文件配置错误</h2><h3 id="问题分析-1"><a href="#问题分析-1" class="headerlink" title="问题分析"></a>问题分析</h3><p>这种情况可能会出现在Code Blocks中，一般不会出现在Visual Studio中。</p>
+<img src="/2018/12/23/%E9%97%AE%E9%A2%98undefined-reference-to-XX-%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/062613435301002.png" class="">
+
+<p>程序代码由多个<code>.cpp</code>文件和若干个<code>.h</code>文件组成，编译时只编译了<code>main</code>函数所在的<code>cpp</code>文件，没有编译（或者链接）上报错中函数的定义所在的<code>cpp</code>文件。</p>
+<h3 id="解决方法-1"><a href="#解决方法-1" class="headerlink" title="解决方法"></a>解决方法</h3><ol>
+<li><p>在项目左侧Projects中找到当前工程，在工程名上右键，选择Properties…。</p>
+<img src="/2018/12/23/%E9%97%AE%E9%A2%98undefined-reference-to-XX-%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/062613435301003.png" class="">
+
+<p>如果左侧Workspace下为空，说明没有建立工程。请在菜单中File - New - Project…建立工程，并跳到第4步。</p>
+</li>
+<li><p>选择Build targets标签页，查看Debug（或者Default）下的Build target files，查看是否所有文件都被选中。</p>
+<img src="/2018/12/23/%E9%97%AE%E9%A2%98undefined-reference-to-XX-%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/062613435301004.png" class="">
+
+<p>如果文件都选中了，那么不是这种情况的问题。</p>
+</li>
+<li><p>如果有文件没有被选中的话，将其选中，然后点OK。</p>
+<img src="/2018/12/23/%E9%97%AE%E9%A2%98undefined-reference-to-XX-%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/062613435301005.png" class="">
+</li>
+<li><p>下一次在File - New - File的时候，出现下图的窗口时，记得全部勾上。</p>
+<img src="/2018/12/23/%E9%97%AE%E9%A2%98undefined-reference-to-XX-%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/062613435301006.png" class=""></li>
+</ol>
+<h2 id="第三种情况：函数的声明和定义不匹配"><a href="#第三种情况：函数的声明和定义不匹配" class="headerlink" title="第三种情况：函数的声明和定义不匹配"></a>第三种情况：函数的声明和定义不匹配</h2><h3 id="问题分析-2"><a href="#问题分析-2" class="headerlink" title="问题分析"></a>问题分析</h3><img src="/2018/12/23/%E9%97%AE%E9%A2%98undefined-reference-to-XX-%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/062613435301007.png" class="">
+
+<p>在这个例子中，<code>Foo</code>是一个类型，我们对其重载了<code>&lt;&lt;</code>运算符。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ostream&amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp;os,<span class="type">const</span> Foo &amp;x);</span><br></pre></td></tr></table></figure>
+
+<p>但是我们在定义&lt;&lt;运算符重载的时候，写成了如下形式：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ostream&amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp;os, Foo &amp;x)	<span class="comment">//这里缺了const</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//TODO</span></span><br><span class="line">    <span class="keyword">return</span> os;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>函数的声明和定义并不匹配，因此会报错。而且这种报错只会出现在，函数已经声明，但没有其定义或者定义不匹配的时候。</p>
+<p>如果没有声明函数的话，报错将会是<code>No match for xxx</code>。如果该函数是某个类的友元函数的话，会报<code>XX is private</code>错误。</p>
+<h3 id="解决方法-2"><a href="#解决方法-2" class="headerlink" title="解决方法"></a>解决方法</h3><p>如果没有定义的话，定义函数。如果已经定义了函数的话，将函数的声明和定义保持一致。</p>
+<h2 id="第四种情况：类模板的函数声明和定义分离"><a href="#第四种情况：类模板的函数声明和定义分离" class="headerlink" title="第四种情况：类模板的函数声明和定义分离"></a>第四种情况：类模板的函数声明和定义分离</h2><h3 id="问题分析-3"><a href="#问题分析-3" class="headerlink" title="问题分析"></a>问题分析</h3><p>在之前的面向对象程序设计中，一般习惯是将类的成员和成员函数的声明写在<code>.h</code>文件里，而将各个成员函数的实现、和静态成员变量的初始化写在对应<code>cpp</code>文件里面。而当引入类模板之后，如果继续这样操作的话，将会报错。</p>
+<img src="/2018/12/23/%E9%97%AE%E9%A2%98undefined-reference-to-XX-%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/062613435301008.png" class="">
+
+<h3 id="解决方法-3"><a href="#解决方法-3" class="headerlink" title="解决方法"></a>解决方法</h3><p>将该类的声明，与成员函数的实现、静态变量的初始化写在同一个文件（一般是头文件）里面。</p>
+<h2 id="第五中情况：类模板的友元的声明"><a href="#第五中情况：类模板的友元的声明" class="headerlink" title="第五中情况：类模板的友元的声明"></a>第五中情况：类模板的友元的声明</h2><h3 id="问题分析-4"><a href="#问题分析-4" class="headerlink" title="问题分析"></a>问题分析</h3><p>当有如下代码时，将会报错</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">T</span>&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">friend</span> ostream&amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp;os,<span class="type">const</span> Foo&amp;x);</span><br><span class="line"></span><br><span class="line">    T a;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">Foo</span>(<span class="type">const</span> T &amp;a);</span><br><span class="line">        ~<span class="built_in">Foo</span>();</span><br><span class="line">        <span class="built_in">Foo</span>(<span class="type">const</span> Foo&amp; other);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<img src="/2018/12/23/%E9%97%AE%E9%A2%98undefined-reference-to-XX-%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/062613435301009.png" class="">
+
+<p>这是因为声明友元的时候没有声明其为函数模板。</p>
+<h3 id="解决方法-4"><a href="#解决方法-4" class="headerlink" title="解决方法"></a>解决方法</h3><p>声明友元函数的时候，也需要声明其为函数模板。</p>
+<p><strong>方法1</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">T</span>&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">Type</span>&gt;</span><br><span class="line">    <span class="keyword">friend</span> ostream&amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp;os,<span class="type">const</span> Foo&lt;Type&gt;&amp;x);</span><br><span class="line">    T a;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">Foo</span>(<span class="type">const</span> T &amp;a);</span><br><span class="line">        ~<span class="built_in">Foo</span>();</span><br><span class="line">        <span class="built_in">Foo</span>(<span class="type">const</span> Foo&amp; other);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>如果将上面的<code>Type</code>改成<code>T</code>，那么在VS上正常编译，在G++（Code Blocks）上无法编译通过，报错如下：</p>
+<img src="/2018/12/23/%E9%97%AE%E9%A2%98undefined-reference-to-XX-%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/062613435301010.png" class="">
+
+<p><strong>方法2（教材上的示例）</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">T</span>&gt; <span class="keyword">class</span> <span class="title class_">Foo</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">T</span>&gt; ostream&amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp;os,<span class="type">const</span> Foo&lt;T&gt;&amp;x);</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">T</span>&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">friend</span> ostream&amp; <span class="keyword">operator</span>&lt;&lt; &lt;&gt;(ostream &amp;os,<span class="type">const</span> Foo&amp;x);	<span class="comment">//注意这里的&lt;&gt;</span></span><br><span class="line">    T a;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">Foo</span>(<span class="type">const</span> T &amp;a);</span><br><span class="line">        ~<span class="built_in">Foo</span>();</span><br><span class="line">        <span class="built_in">Foo</span>(<span class="type">const</span> Foo&amp; other);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li><code>undefined reference to &#39;XX&#39;</code>这种报错会出现在，<strong>函数已经声明</strong>，而且<strong>调用时参数与声明的一致</strong>，但是<strong>没有定义</strong>或者<strong>声明与定义（实现）不匹配</strong>的时候。</li>
+<li>如果<strong>没有声明函数</strong>或者<strong>调用时参数与声明不一样</strong>的话，报错将会是<code>No match for xxx</code>。如果该函数是某个类的友元函数的话，还会报<code>XX is private</code>错误。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%B5%84%E6%96%99/" rel="tag"># 资料</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/12/03/%E5%BD%93%E4%BB%A3%E4%B8%AD%E5%9B%BD%E5%9F%8E%E9%95%87%E5%8C%96%E5%8F%91%E5%B1%95%E4%B8%AD%E5%9F%8E%E5%B8%82%E8%A7%84%E6%A8%A1%E9%97%AE%E9%A2%98%E6%8E%A2%E7%A9%B6/" rel="prev" title="当代中国城镇化发展中城市规模问题探究">
+                  <i class="fa fa-angle-left"></i> 当代中国城镇化发展中城市规模问题探究
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/12/23/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%8A%E6%9C%BA%E4%BD%9C%E4%B8%9A/" rel="next" title="数字信号处理上机作业">
+                  数字信号处理上机作业 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">杜某某</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

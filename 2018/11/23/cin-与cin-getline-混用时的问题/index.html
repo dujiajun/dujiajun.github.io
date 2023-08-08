@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.dujiajun.site","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="问题描述很多时候我们会遇到这样一种情景，第一行读入一个整数n，第二行输入一行字符串str。 大家会自然地写出如下代码： 1234567int n;char str[80], str2[80];cout&lt;&lt;&quot;Input an integer:&quot;;cin&gt;&gt;n;cout&lt;&lt;&quot;Input a string:&quot;;cin.getli">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cin&gt;&gt;与cin.getline()混用时的问题">
+<meta property="og:url" content="http://blog.dujiajun.site/2018/11/23/cin-%E4%B8%8Ecin-getline-%E6%B7%B7%E7%94%A8%E6%97%B6%E7%9A%84%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="一无是处杜某某">
+<meta property="og:description" content="问题描述很多时候我们会遇到这样一种情景，第一行读入一个整数n，第二行输入一行字符串str。 大家会自然地写出如下代码： 1234567int n;char str[80], str2[80];cout&lt;&lt;&quot;Input an integer:&quot;;cin&gt;&gt;n;cout&lt;&lt;&quot;Input a string:&quot;;cin.getli">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-11-23T05:44:41.000Z">
+<meta property="article:modified_time" content="2018-11-23T05:44:41.000Z">
+<meta property="article:author" content="杜某某">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://blog.dujiajun.site/2018/11/23/cin-%E4%B8%8Ecin-getline-%E6%B7%B7%E7%94%A8%E6%97%B6%E7%9A%84%E9%97%AE%E9%A2%98/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://blog.dujiajun.site/2018/11/23/cin-%E4%B8%8Ecin-getline-%E6%B7%B7%E7%94%A8%E6%97%B6%E7%9A%84%E9%97%AE%E9%A2%98/","path":"2018/11/23/cin-与cin-getline-混用时的问题/","title":"cin>>与cin.getline()混用时的问题"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>cin>>与cin.getline()混用时的问题 | 一无是处杜某某</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?34f7210ec82752a9bbc5d28884db07fb"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">一无是处杜某某</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">或许是东川路第一老实人</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%9B%A0"><span class="nav-number">2.</span> <span class="nav-text">原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">解决方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A9%E5%B1%95"><span class="nav-number">4.</span> <span class="nav-text">扩展</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">杜某某</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.dujiajun.site/2018/11/23/cin-%E4%B8%8Ecin-getline-%E6%B7%B7%E7%94%A8%E6%97%B6%E7%9A%84%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="杜某某">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一无是处杜某某">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="cin>>与cin.getline()混用时的问题 | 一无是处杜某某">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          cin>>与cin.getline()混用时的问题
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-11-23 13:44:41" itemprop="dateCreated datePublished" datetime="2018-11-23T13:44:41+08:00">2018-11-23</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>很多时候我们会遇到这样一种情景，第一行读入一个整数<code>n</code>，第二行输入一行字符串<code>str</code>。</p>
+<p>大家会自然地写出如下代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="type">char</span> str[<span class="number">80</span>], str2[<span class="number">80</span>];</span><br><span class="line">cout&lt;&lt;<span class="string">&quot;Input an integer:&quot;</span>;</span><br><span class="line">cin&gt;&gt;n;</span><br><span class="line">cout&lt;&lt;<span class="string">&quot;Input a string:&quot;</span>;</span><br><span class="line">cin.<span class="built_in">getline</span>(str, <span class="number">80</span>);</span><br><span class="line">cout&lt;&lt;<span class="string">&quot;End of Input!&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>但是当运行在控制台的时候，我们先输入一个整数，然后回车，然后试图输入一行字符串，会发现第二行字符串没有被输入。当我们检查到底输入了什么的时候，发现<code>str</code>为空字符串。</p>
+<p>控制台显示内容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input an integer:5</span><br><span class="line">Input a string:End of Input!</span><br></pre></td></tr></table></figure>
+
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p><code>cin&gt;&gt;</code>的工作方式为，根据<code>&gt;&gt;</code>后面的数据类型读取数据，从非空白字符开始，遇到回车<code>&#39;\n&#39;</code>、空格<code>&#39; &#39;</code>、制表符<code>&#39;\t&#39;</code>等时结束。结束时将这些空白字符保留在输入流中。</p>
+<p><code>cin.getline()</code>的工作方式为，从输入流读取一行数据，遇到<code>&#39;\n&#39;</code>结束。结束时不在输入流中保留<code>&#39;\n&#39;</code></p>
+<p>在上面的代码和输入中，我们输入<code>5</code>之后按了一下回车，通过判断回车判断对<code>n</code>输入结束。这种情况下，<code>cin</code>不会删除输入流中的<code>&#39;\n&#39;</code>，换行符将被留在输入流里面。接下来就被<code>cin.getline()</code>读入，其判断输入为换行符，结束本行输入，因而<code>str</code>为空。</p>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>在<code>cin&gt;&gt;</code>与<code>cin.getline()</code>之间把这个换行符从输入流清除即可。</p>
+<p>可以使用<code>cin.ignore();</code>忽略这个换行符，也可以使用<code>cin.get();</code>将这个换行符读入。</p>
+<p>于是修改后的代码为：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="type">char</span> str[<span class="number">80</span>], str2[<span class="number">80</span>];</span><br><span class="line">cout&lt;&lt;<span class="string">&quot;Input an integer:&quot;</span>;</span><br><span class="line">cin&gt;&gt;n;</span><br><span class="line">cin.<span class="built_in">ignore</span>();</span><br><span class="line"><span class="comment">// 或者 cin.get();</span></span><br><span class="line">cout&lt;&lt;<span class="string">&quot;Input a string:&quot;</span>;</span><br><span class="line">cin.<span class="built_in">getline</span>(str, <span class="number">80</span>);</span><br><span class="line">cout&lt;&lt;<span class="string">&quot;End of Input!&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><p><code>cin.get()</code>也能输入一行字符串，这种场景的调用方式和<code>cin.getline()</code>一模一样，只是把<code>getline</code>改成了<code>get</code>，如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cin.get(str,80);</span><br></pre></td></tr></table></figure>
+
+<p>那么它和<code>cin.getline()</code>有什么区别呢？</p>
+<p><code>cin.get</code><strong>在这种用法下</strong>将输入本行时最后的换行符保留在了输入流中，而<code>cin.getline()</code>不保留换行符。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/11/01/MIX2S%E7%9A%84%E7%AC%AC%E4%B8%80%E5%A4%A9/" rel="prev" title="MIX2S的第一天">
+                  <i class="fa fa-angle-left"></i> MIX2S的第一天
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/12/03/%E5%BD%93%E4%BB%A3%E4%B8%AD%E5%9B%BD%E5%9F%8E%E9%95%87%E5%8C%96%E5%8F%91%E5%B1%95%E4%B8%AD%E5%9F%8E%E5%B8%82%E8%A7%84%E6%A8%A1%E9%97%AE%E9%A2%98%E6%8E%A2%E7%A9%B6/" rel="next" title="当代中国城镇化发展中城市规模问题探究">
+                  当代中国城镇化发展中城市规模问题探究 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">杜某某</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

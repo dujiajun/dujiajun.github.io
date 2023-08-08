@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.dujiajun.site","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="本文为操作系统课程期末复习课内容，作者为小笼包  操作系统概述 绝对不会考什么是操作系统，但是可能出现在简答和判断题里 关于操作系统的回顾（理解）  以技术的转折点为主导 作业题里面 为什么有这项技术，这项技术解决了什么问题  缓存、中断、DMA、多道程序、SPOOLING等     操作系统的概念  PPT：微机操作系统 理解性的，选择判断   操作系统的特征  经常提问的 并发、共享、虚拟、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统（刘功申）最后一节课内容">
+<meta property="og:url" content="http://blog.dujiajun.site/2019/06/14/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%88%E5%88%98%E5%8A%9F%E7%94%B3%EF%BC%89%E6%9C%80%E5%90%8E%E4%B8%80%E8%8A%82%E8%AF%BE%E5%86%85%E5%AE%B9/index.html">
+<meta property="og:site_name" content="一无是处杜某某">
+<meta property="og:description" content="本文为操作系统课程期末复习课内容，作者为小笼包  操作系统概述 绝对不会考什么是操作系统，但是可能出现在简答和判断题里 关于操作系统的回顾（理解）  以技术的转折点为主导 作业题里面 为什么有这项技术，这项技术解决了什么问题  缓存、中断、DMA、多道程序、SPOOLING等     操作系统的概念  PPT：微机操作系统 理解性的，选择判断   操作系统的特征  经常提问的 并发、共享、虚拟、">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-06-14T05:25:26.000Z">
+<meta property="article:modified_time" content="2019-06-14T05:25:26.000Z">
+<meta property="article:author" content="杜某某">
+<meta property="article:tag" content="资料">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://blog.dujiajun.site/2019/06/14/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%88%E5%88%98%E5%8A%9F%E7%94%B3%EF%BC%89%E6%9C%80%E5%90%8E%E4%B8%80%E8%8A%82%E8%AF%BE%E5%86%85%E5%AE%B9/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://blog.dujiajun.site/2019/06/14/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%88%E5%88%98%E5%8A%9F%E7%94%B3%EF%BC%89%E6%9C%80%E5%90%8E%E4%B8%80%E8%8A%82%E8%AF%BE%E5%86%85%E5%AE%B9/","path":"2019/06/14/操作系统（刘功申）最后一节课内容/","title":"操作系统（刘功申）最后一节课内容"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>操作系统（刘功申）最后一节课内容 | 一无是处杜某某</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?34f7210ec82752a9bbc5d28884db07fb"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">一无是处杜某某</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">或许是东川路第一老实人</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">操作系统概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">存储管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">进程管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1"><span class="nav-number">4.</span> <span class="nav-text">进程通信</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">5.</span> <span class="nav-text">文件系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86"><span class="nav-number">6.</span> <span class="nav-text">设备管理</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">杜某某</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.dujiajun.site/2019/06/14/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%88%E5%88%98%E5%8A%9F%E7%94%B3%EF%BC%89%E6%9C%80%E5%90%8E%E4%B8%80%E8%8A%82%E8%AF%BE%E5%86%85%E5%AE%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="杜某某">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一无是处杜某某">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="操作系统（刘功申）最后一节课内容 | 一无是处杜某某">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          操作系统（刘功申）最后一节课内容
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-06-14 13:25:26" itemprop="dateCreated datePublished" datetime="2019-06-14T13:25:26+08:00">2019-06-14</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>本文为操作系统课程期末复习课内容，作者为小笼包</p>
+</blockquote>
+<h2 id="操作系统概述"><a href="#操作系统概述" class="headerlink" title="操作系统概述"></a>操作系统概述</h2><ul>
+<li>绝对不会考什么是操作系统，但是可能出现在简答和判断题里</li>
+<li>关于操作系统的回顾（理解）</li>
+<li><ul>
+<li>以技术的转折点为主导</li>
+<li>作业题里面</li>
+<li>为什么有这项技术，这项技术解决了什么问题</li>
+<li><ul>
+<li>缓存、中断、DMA、多道程序、SPOOLING等</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>操作系统的概念</li>
+<li><ul>
+<li>PPT：微机操作系统</li>
+<li>理解性的，选择判断</li>
+</ul>
+</li>
+<li>操作系统的特征</li>
+<li><ul>
+<li>经常提问的</li>
+<li>并发、共享、虚拟、不确定性</li>
+</ul>
+</li>
+<li>操作系统的几大功能</li>
+<li><ul>
+<li>按照章节来</li>
+<li>进程、存储、设备、文件、用户接口</li>
+</ul>
+</li>
+<li>作业题要看</li>
+</ul>
+<h2 id="存储管理"><a href="#存储管理" class="headerlink" title="存储管理"></a>存储管理</h2><ul>
+<li>内存管理的需求</li>
+<li><ul>
+<li>挺核心的，但是书上没有</li>
+</ul>
+</li>
+<li>可变分区分配算法</li>
+<li><ul>
+<li>首次、邻近、最佳、最差</li>
+</ul>
+</li>
+<li>内存扩充技术</li>
+<li><ul>
+<li>覆盖、虚拟</li>
+<li>这种概念要理清楚</li>
+</ul>
+</li>
+<li>新分区思想</li>
+<li><ul>
+<li>一定理解</li>
+<li>分页、分段</li>
+</ul>
+</li>
+<li>逻辑地址到物理地址的转换</li>
+<li><ul>
+<li>特别核心的一大块</li>
+<li>但是书上有些东西没有，教材上没有的肯定不会考</li>
+<li>页表</li>
+<li><ul>
+<li>各种转换方式，书上有的一定都是重点</li>
+<li>快表、多级页表</li>
+<li>反向页表不会考</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>局部性原理</li>
+<li><ul>
+<li>必须理解</li>
+<li>“有哪些地方用到了局部性原理？”</li>
+</ul>
+</li>
+<li>淘汰算法</li>
+<li><ul>
+<li>一共也没有几个，比较重点的是Clock算法（书P33上面的解释要看）</li>
+<li>FIFO、矩阵法，这都是课本上有的，但是可能不太重要，也不能忽略</li>
+</ul>
+</li>
+<li>后面书上没有的的就算了</li>
+<li><ul>
+<li>驻留集、清除策略、装入控制这都不考</li>
+</ul>
+</li>
+<li>具体实例关注Unix</li>
+<li><ul>
+<li>Lazy Buddy要知道</li>
+<li>页面分配和回收</li>
+<li><ul>
+<li>Age</li>
+<li>为什么设置最大年龄值等问题</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>本章的三大部分</li>
+<li><ul>
+<li>分页分段（内存管理）</li>
+<li>地址转换</li>
+<li>淘汰算法</li>
+</ul>
+</li>
+</ul>
+<h2 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h2><ul>
+<li>这部分占用两章，课时最多，分数也最重</li>
+<li>进程的状态及其转换</li>
+<li><ul>
+<li>我们只考3状态，但是考研考5状态</li>
+<li>状态之间转换的原因（事件）</li>
+<li>哪些状态之间不能转换</li>
+</ul>
+</li>
+<li>挂起状态书上好像是有的？（确认一下）</li>
+<li>进程映像中的数据</li>
+<li><ul>
+<li>不用背数据结构，但是文字要掌握？</li>
+<li>PPT pp.38这种不用背</li>
+</ul>
+</li>
+<li>CPU模式就丢了（书上没有）</li>
+<li><ul>
+<li>用户模式、内核模式</li>
+</ul>
+</li>
+<li>操作系统的类型</li>
+<li><ul>
+<li>没有内核、内核和用户编在一起、内核独立的</li>
+<li>内核与进程是否编在一起的三种方式</li>
+</ul>
+</li>
+<li>线程和进程的区别</li>
+<li><ul>
+<li>为什么要做线程，克服了进程的哪些缺点</li>
+</ul>
+</li>
+<li>用户级多线程、内核级、混合方法实现的多线程</li>
+<li>Windows就算了</li>
+<li>调度算法</li>
+<li><ul>
+<li>高级调度、中级调度、低级调度</li>
+<li>最容易出选择和判断题</li>
+<li>区分清楚三种不同级别线程调度中，低级调度调度的是谁</li>
+</ul>
+</li>
+<li>作业调度，可以就当进程调度来理解</li>
+<li><ul>
+<li>周转时间、带权周转时间搞清楚</li>
+</ul>
+</li>
+<li>常用调度算法</li>
+<li><ul>
+<li>PPT pp.110，越往后越核心</li>
+<li>必须理解的内容</li>
+</ul>
+</li>
+<li>实时调度</li>
+<li><ul>
+<li>书上讲的很少，书上没有的就不要了</li>
+<li>书上没有优先级逆转</li>
+</ul>
+</li>
+<li>多处理器调度</li>
+<li><ul>
+<li>书上好像只有，群调度算法</li>
+<li>其他的就算了</li>
+</ul>
+</li>
+</ul>
+<h2 id="进程通信"><a href="#进程通信" class="headerlink" title="进程通信"></a>进程通信</h2><ul>
+<li>多线程并发执行带来的问题</li>
+<li>《此处漏了一部分》</li>
+<li>Peterson的算法描述要有</li>
+<li>信号量</li>
+<li><ul>
+<li><strong>重点（这个是必考的）</strong></li>
+<li>生产者消费者问题</li>
+<li>读者写者问题</li>
+<li><ul>
+<li>只考读者优先</li>
+</ul>
+</li>
+<li>哲学家问题</li>
+</ul>
+</li>
+<li>死锁</li>
+<li><ul>
+<li>死锁的定义</li>
+<li><ul>
+<li>考理解</li>
+</ul>
+</li>
+<li>死锁产生的条件</li>
+<li><ul>
+<li>四个3+1</li>
+</ul>
+</li>
+<li>应对死锁的方法</li>
+<li><ul>
+<li>各种思路</li>
+</ul>
+</li>
+<li>银行家算法和Coffman算法</li>
+<li><ul>
+<li>思想、区别等</li>
+</ul>
+</li>
+<li>综合的策略</li>
+<li><ul>
+<li>书上没有</li>
+<li>还有后面的那个书上也没有</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Unix系统的并发机制</li>
+<li><ul>
+<li>通信方法有什么，控制方法有什么</li>
+<li>信号Signal</li>
+<li>中断Interrupt</li>
+<li>管道Pipe</li>
+<li>后面没啥了</li>
+</ul>
+</li>
+<li>《这里漏了一些》</li>
+</ul>
+<h2 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h2><ul>
+<li>应对延迟的方法</li>
+<li><ul>
+<li>一共五条，分成五条写</li>
+</ul>
+</li>
+<li>磁盘调度算法</li>
+<li><ul>
+<li>考试肯定比小测上的复杂</li>
+</ul>
+</li>
+<li>RAID不考</li>
+<li>文件的组织方式</li>
+<li><ul>
+<li>都是理解性的</li>
+</ul>
+</li>
+<li>文件大小的计算</li>
+<li><ul>
+<li>在UNIX里面讲的</li>
+</ul>
+</li>
+<li>UNIX索引节点很重要</li>
+<li>流文件与系统操作</li>
+<li><ul>
+<li>pp.106附近有一个题目</li>
+</ul>
+</li>
+<li>空闲文件存储块</li>
+<li><ul>
+<li>50叉树的那个</li>
+<li>作业题里面有，是个重点</li>
+</ul>
+</li>
+<li>还有下推栈</li>
+<li>Ext、F2FS<ul>
+<li>这都不考</li>
+</ul>
+</li>
+<li>SSD的文件系统</li>
+<li><ul>
+<li>有理解性的题目，在ppt150-160之间</li>
+</ul>
+</li>
+</ul>
+<h2 id="设备管理"><a href="#设备管理" class="headerlink" title="设备管理"></a>设备管理</h2><ul>
+<li>这里没有大型的题目</li>
+</ul>
+<p>简答题<br>也是三大块都有<br>三个大应用题</p>
+<ul>
+<li>内存</li>
+<li>进程</li>
+<li>文件系统和设备</li>
+<li><ul>
+<li>绝对不会是出现在小测里的那么简单</li>
+<li>肯定是要理解的</li>
+</ul>
+</li>
+</ul>
+<p>更正：磁盘的最外道为0道，最内道为高编码。如果期末考试没有说清楚是向编码高的方向移动，还是反方向，就举手问。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%B5%84%E6%96%99/" rel="tag"># 资料</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/06/09/%E4%B8%BA%E4%BB%80%E4%B9%88%E7%BE%8E%E5%9B%BD%E5%9C%A85G%E4%BA%A7%E4%B8%9A%E5%8C%96%E5%BA%94%E7%94%A8%E4%B8%8A%E8%90%BD%E5%90%8E%E4%BA%86%EF%BC%9F/" rel="prev" title="为什么美国在5G产业化应用上落后了？">
+                  <i class="fa fa-angle-left"></i> 为什么美国在5G产业化应用上落后了？
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/09/08/%E5%A4%A7%E4%B8%89%E4%B8%8B%E5%AD%A6%E6%9C%9F%E6%80%BB%E7%BB%93/" rel="next" title="大三下学期总结">
+                  大三下学期总结 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">杜某某</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

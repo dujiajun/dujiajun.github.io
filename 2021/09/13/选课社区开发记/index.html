@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.dujiajun.site","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在我的回忆录中已经提到，本科四年期间我做了许多事情，其中一件事就是选课交流群。 由于交大饮水思源BBS长期缺位，各类信息在各种群里被迅速刷走而无法长期保存。但是客观上新生会有信息的需求，所以每年各学生组织都会给在自己的公众号上重复发布各类往年选课经验供大家参考。虽然一开始选课交流群只是一些水群的群友们想互利互助的结果，但是在逐渐扩张之时，我们也就想着做一个大规模的选课经验分享平台。等到了2018年">
+<meta property="og:type" content="article">
+<meta property="og:title" content="选课社区开发记">
+<meta property="og:url" content="http://blog.dujiajun.site/2021/09/13/%E9%80%89%E8%AF%BE%E7%A4%BE%E5%8C%BA%E5%BC%80%E5%8F%91%E8%AE%B0/index.html">
+<meta property="og:site_name" content="一无是处杜某某">
+<meta property="og:description" content="在我的回忆录中已经提到，本科四年期间我做了许多事情，其中一件事就是选课交流群。 由于交大饮水思源BBS长期缺位，各类信息在各种群里被迅速刷走而无法长期保存。但是客观上新生会有信息的需求，所以每年各学生组织都会给在自己的公众号上重复发布各类往年选课经验供大家参考。虽然一开始选课交流群只是一些水群的群友们想互利互助的结果，但是在逐渐扩张之时，我们也就想着做一个大规模的选课经验分享平台。等到了2018年">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-09-13T13:19:28.000Z">
+<meta property="article:modified_time" content="2021-09-13T13:19:28.000Z">
+<meta property="article:author" content="杜某某">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://blog.dujiajun.site/2021/09/13/%E9%80%89%E8%AF%BE%E7%A4%BE%E5%8C%BA%E5%BC%80%E5%8F%91%E8%AE%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://blog.dujiajun.site/2021/09/13/%E9%80%89%E8%AF%BE%E7%A4%BE%E5%8C%BA%E5%BC%80%E5%8F%91%E8%AE%B0/","path":"2021/09/13/选课社区开发记/","title":"选课社区开发记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>选课社区开发记 | 一无是处杜某某</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?34f7210ec82752a9bbc5d28884db07fb"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">一无是处杜某某</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">或许是东川路第一老实人</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">杜某某</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.dujiajun.site/2021/09/13/%E9%80%89%E8%AF%BE%E7%A4%BE%E5%8C%BA%E5%BC%80%E5%8F%91%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="杜某某">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一无是处杜某某">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="选课社区开发记 | 一无是处杜某某">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          选课社区开发记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-13 21:19:28" itemprop="dateCreated datePublished" datetime="2021-09-13T21:19:28+08:00">2021-09-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>在我的回忆录中已经提到，本科四年期间我做了许多事情，其中一件事就是选课交流群。</p>
+<p>由于交大饮水思源BBS长期缺位，各类信息在各种群里被迅速刷走而无法长期保存。但是客观上新生会有信息的需求，所以每年各学生组织都会给在自己的公众号上重复发布各类往年选课经验供大家参考。虽然一开始选课交流群只是一些水群的群友们想互利互助的结果，但是在逐渐扩张之时，我们也就想着做一个大规模的选课经验分享平台。等到了2018年秋天，选课群第一次达到了千人规模，导致群主需要开会员时，我就已经开始构想开发选课社区了，但是后来一直都没有实施。</p>
+<p>一开始担心合规问题。考虑我们面向的群体是交大在校学生，那么服务器就应该放在国内或者校内，这样访问会比较快。但是如果服务器放在国内公开云平台上，个人运营此类交互式网站能否拿到公安备案？又或者交大是否会支持或者反对此类项目？能否有校内的服务器？这个问题我一直没想好。后来我们希望给学科群加上加群验证，仅供交大人加群，因此去申请了sjtu.plus域名和服务器用来发邮件验证，并且配了ICP备案。在人参果同学的建议下和NIC老师接触，他们表示支持加群验证，所以申请了jAccount接口。但是我后来又问过选课社区，或者类似于校园司令之类的东西时，由于老师说避免麻烦（比如某老师可能想查谁点评的）不想掺和这种东西，所以就决定不放在学校服务器上，而是自己的服务器。</p>
+<p>2020年寒假，由于2个选课群已经长期爆满，每次选课时都要清理一大批不发言的用户，我就在想真就把选课社区搞出来，为此还学了Vue。学了没几天发现Vue3要出了，但是当时很多UI库还不支持Vue3。我这种更新强迫症受不了用旧的代码。加上之前看上的Vuetify这个Material Design风格的UI做出来的demo实在不符合国情审美，所以放弃了用Vue2开发。即便如此，那几天学的Vue最后用在毕设的前端展示界面，也没白学。</p>
+<p>2020年暑假有同学找我说想把选课社区作为暑假的大作业，他们提供开发人员，我提供宣传和运营。暑假结束了也杳无音信，最后我不想等了就开干吧。</p>
+<p>在开发选课社区之前，我调研过是否确实需要自己开发。由于我们之前几年都做了选修课体验整理的问卷，并且把结果做成PDF分发，我考虑过是否能够直接用可以实时查询结果的问卷系统代替。然而支持这功能的商用问卷系统都是付费功能。后来交大搞了个自己的问卷系统，也不支持实时查询，只能定期同步。我就放弃了这个方案。</p>
+<p>我还调研了很多类似的经验分享平台，有用GitHub的，有自己开发的。</p>
+<p>用GitHub的，比如IEEE.ICU，或者浙大课程共享之类的项目。这类项目最大问题是门槛。非程序员需要学习科学上网和Git才会用。开发者自己程序员倒是会用，但是其他用户会不会用是一个问题。我希望选课社区是面向全校各专业的，任何人都能无需学习这类工具就能直接提交。</p>
+<p>自主开发的案例中，我观摩了北大的非官方课程评测和中科大的USTC评课社区。两校学生开发的产品充分反应了两校的精神特质。其中科大评课社区是开源的，而且我还找高中同学借了个账号体验了一番其内部流程。</p>
+<p>在用户体系方面，北大课程评测的用户和开发者都是完全匿名的，无需注册和登录账号。比起社区，它更像是一个能自动查询结果的问卷搜集网站。科大的评课社区是真正意义上的社区，用户使用科大邮箱注册，前端代号后端实名，可以相互关注，还能回复其他人的点评。为了维护更方便，我选择了带用户体系的，不过用户无法知道非自己发布的点评到底是谁写的。考虑到大家对实名点评可能存在疑虑，而且我对谁发表了什么也没兴趣，所以即便用了jAccount登录，数据库里也存放的是其用户名的哈希值。有用户体系之后，还能出现与教学信息服务网同步、与传承兑换积分之类的玩法。</p>
+<p>北大课程评测在许多地方的描述用语和我认识的北大同学的气质一致，具体我无法描述，类似于一股最高学府的高傲。北大课程评测处处体现出平台之于学校的独立性和匿名性，生怕开发者和用户被查水表。它们用了大段的文字提示用户应该怎么填符合开发者意愿的评测。还有提交评测时必须要填一句话总结的标题，而我看来这标题毫无必要。科大评课社区的提示语就非常简单，就和其自嘲南七技校差不多了。USTC评课社区开发者身份是公开的，其服务器由科大图书馆赞助。与之对比一番，交大却不支持在校内服务器上运营此类平台。</p>
+<p>在点评内容上，北大仅支持纯文本和对几项特点的选择题，并且使用表情作为选项。同时北大课程评测在正文中给用户提供了需要点评的几方面的模板。科大在选择几个方面的文字选项以外，点评正文支持富文本和图片，有更多的玩法。由于我运行在个人服务器的原因，决定只用纯文本。两个平台都对某些方面做了客观题选项让用户选择，而我觉得这标准实在太主观，不如直接做成主观回答。在设计点评维度的时候我参考了之前继承的选修课体验整理问卷。</p>
+<p>正式写开工写代码之前，我还做了技术栈选型调研。可能是我对前后端分离有执念，或者是考虑到可能有多种前端的需求，我一开始就选择用前后端分离的架构。虽然科大的代码是开源的，但是它是Django后端渲染的界面，而且用的旧版bootstrap我觉得不好看。因此我就没有在科大评课社区基础上改代码而是另起炉灶。</p>
+<p>前端我参考了交大传承，react+antd作为UI和组件库，然后懒人脚手架umi一把梭。后端我也想着全家桶，就选了django+drf，特别是我想要django admin直接出管理界面。我想了这网站吞吐量也不会高到哪里去，用Python不至于带不动。数据库就直接用目前流行的PostgreSQL了。</p>
+<p>我在做用户登录特别是jAccount登录时，一开始参考了杜赛的博客用jwt，结果我没搞得定就搁置了。后来看cxs的交叉模块课，也就是信安大三下的应用软件课程设计的大作业，并且当面指教之后，用了同样的session方式，可算是搞定了登录。后来一查，网上博客不知道为什么，一大堆都是用jwt的。</p>
+<p>数据模型设计我纠结了很久。主要是同一个课号的不同教师应该怎么设计。究竟是把相同课号的信息单独拆分出来建张表避免冗余，还是不同老师的同课号课直接重复相同的信息。为了避免麻烦，我还是选择了冗余，毕竟这点数据不占多少硬盘。考虑到每学期的课不一样，是否需要记录这门课在哪个学期开课也是一个问题。科大的做法是建立课程和学期之间的多对多关系，在查询信息和点评的时候合并。我选择不存储这个数据，交给用户在点评时自己选学期，这点和北大一致。我还把学期这种信息单独建了表，作为外键引入到点评中，而不是写在代码里作为选项，而且学期的名称为2021-2022-1这种格式。这一设计在导入教学信息服务网选课信息的时候非常方便，其实我一开始没想到会有这个功能。</p>
+<p>编程写出一个平台其实很简单，后期的运营才是平台可持续繁荣的重点。水源一开始运营中就存在很多失误，导致的问题至今没有解决。而选课社区功能单一目标纯粹，最核心的问题是如何激励用户创作，写出真实而丰富的点评。我一开始想过搞等级制，或者限定发表多少条点评后解锁全部课程，但是又觉得不妥。后来搞了点评可以兑换传承积分，在当时稍微激励了一番，但这毕竟是不可持续的。这个问题还将困扰许久。</p>
+<p>剩下一个问题是，如何在毕业之后解决项目的维护者问题。交大传承是一个典型案例，早几年的学长们开发之后火了几年，等他们相继毕业后就无人维护。要感谢其中一位学长在毕业后还自掏腰包一直承担传承的百度对象存储服务。直到后来传承在交大的服务器挂了，由人参果找到了对应服务器，取回了数据，再交到东岳手上才重新有人维护。SJTU+很快也会面临同样的问题。我和我的同学这几年搞出来的其他一堆事迹，也由于毕业或者自己不再需要就没有维护了。</p>
+<p>这个问题我思考了很多年。体制内由党组织负责选拔接班人，各组织有自己的交接方式。而个人一时兴起做的项目，到底有没有人接手，接手后会不会变质，我想不出答案。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/04/24/%E6%B0%B4%E6%BA%90%E6%95%85%E4%BA%8B/" rel="prev" title="水源故事">
+                  <i class="fa fa-angle-left"></i> 水源故事
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/11/01/%E5%B7%A5%E7%A7%91%E8%AF%95%E9%AA%8C%E7%8F%AD%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%E7%9A%84%E8%90%BD%E5%B9%95%E5%86%99%E5%9C%A820%E7%BA%A7%E8%BD%AC%E4%B8%93%E4%B8%9A%E7%BB%93%E6%9D%9F%E7%9A%84%E6%84%9F%E6%82%9F/" rel="next" title="工科试验班第二阶段的落幕——写在20级转专业结束的感悟">
+                  工科试验班第二阶段的落幕——写在20级转专业结束的感悟 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">杜某某</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
