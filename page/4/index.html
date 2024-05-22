@@ -122,7 +122,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-count">41</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -145,6 +145,94 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://blog.dujiajun.site/2018/10/18/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%A7%91%E6%8A%80%E5%88%9B%E6%96%B0%E4%BD%9C%E4%B8%9A%E4%B9%8B%E7%BC%96%E5%86%99iptables%E8%A7%84%E5%88%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="杜某某">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一无是处杜某某">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 一无是处杜某某">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/10/18/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%A7%91%E6%8A%80%E5%88%9B%E6%96%B0%E4%BD%9C%E4%B8%9A%E4%B9%8B%E7%BC%96%E5%86%99iptables%E8%A7%84%E5%88%99/" class="post-title-link" itemprop="url">信息安全科技创新作业之编写iptables规则</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-10-18 13:54:58" itemprop="dateCreated datePublished" datetime="2018-10-18T13:54:58+08:00">2018-10-18</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>本文为信息安全科技创新课程作业</p>
+</blockquote>
+<p>对于保护单个主机的人防火墙，其连接Internet的接口为<code>eth0</code>，假定 ftp服务为port模式，请给出以下安全策略相应的iptables命令：</p>
+<p>1）将一条规则放在 INPUT 链首，允许所有从任何地方到本地telnet 端口的连接 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -I INPUT -p tcp --dport telnet -j ACCEPT</span><br></pre></td></tr></table></figure>
+<p>2）将一条规则附加到 INPUT 链的末尾，确定来自源地址 <code>205.168.0.0/24</code> 的信息包可以 ACCEPT</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -A INPUT -s 205.168.0.0/24 -j ACCEPT</span><br></pre></td></tr></table></figure>
+<p>3）更改所有离开 <code>eth0</code> 接口数据包的源地址为<code>1.2.3.4</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -A POSTROUTING -o eth0 -j SNAT --to 1.2.3.4</span><br></pre></td></tr></table></figure>
+<p>4）更改源IP为<code>202.127.14.61</code>，进入 <code>eth0</code> 接口数据包的目地址为<code>1.2.4.4</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -A PREROUTING -s 202.127.14.61 -i eth0 -j DNAT --to 1.2.4.4</span><br></pre></td></tr></table></figure>
+<p>5）将所有来自外网的ftp访问数据流重定向到<code>1.2.4.4:1008</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -A PREROUTING -i eth0 -p tcp --dport ftp -j DNAT --to 1.2.4.4:1008</span><br></pre></td></tr></table></figure>
+<p>6）本机对外开放 FTP 服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -A INPUT -p tcp --dport ftp -j ACCEPT</span><br><span class="line">iptables -t filter -A OUTPUT -p tcp --dport ftp -j ACCEPT</span><br><span class="line">iptables -t filter -A INPUT -p tcp --sport ftp -j ACCEPT</span><br><span class="line">iptables -t filter -A OUTPUT -p tcp --sport ftp -j ACCEPT</span><br></pre></td></tr></table></figure>
+<p>7）在filter表的 INPUT链的最后追加一条规则，丢弃通过<code>eth0</code>传入的序号为8的icmp协议数据包，即ping request，以实现其他主机不能成功的ping通本机</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t filter -A INPUT -i eth0 -p icmp --icmp-type 8 -j DROP</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&gt; iptables -L -t filter</span><br><span class="line"></span><br><span class="line">Chain INPUT (policy ACCEPT)</span><br><span class="line">target prot opt source destination </span><br><span class="line">ACCEPT tcp -- anywhere anywhere tcp dpt:telnet</span><br><span class="line">ACCEPT all -- 205.168.0.0/24 anywhere </span><br><span class="line">ACCEPT tcp -- anywhere anywhere tcp dpt:ftp</span><br><span class="line">ACCEPT tcp -- anywhere anywhere tcp spt:ftp</span><br><span class="line">DROP icmp -- anywhere anywhere icmp echo-request</span><br><span class="line"></span><br><span class="line">Chain FORWARD (policy ACCEPT)</span><br><span class="line">target prot opt source destination </span><br><span class="line"></span><br><span class="line">Chain OUTPUT (policy ACCEPT)</span><br><span class="line">target prot opt source destination </span><br><span class="line">ACCEPT tcp -- anywhere anywhere tcp dpt:ftp</span><br><span class="line">ACCEPT tcp -- anywhere anywhere tcp spt:ftp</span><br><span class="line"></span><br><span class="line">iptables -L -t nat</span><br><span class="line">Chain PREROUTING (policy ACCEPT)</span><br><span class="line">target prot opt source destination </span><br><span class="line">DNAT all -- 202.127.14.61 anywhere to:1.2.4.4</span><br><span class="line">DNAT tcp -- anywhere anywhere tcp dpt:ftp to:1.2.4.4:1008</span><br><span class="line"></span><br><span class="line">Chain INPUT (policy ACCEPT)</span><br><span class="line">target prot opt source destination </span><br><span class="line"></span><br><span class="line">Chain OUTPUT (policy ACCEPT)</span><br><span class="line">target prot opt source destination </span><br><span class="line"></span><br><span class="line">Chain POSTROUTING (policy ACCEPT)</span><br><span class="line">target prot opt source destination </span><br><span class="line">SNAT all -- anywhere anywhere to:1.2.3.4</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -850,87 +938,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://blog.dujiajun.site/2016/12/09/%E7%BB%99%E4%BF%A1%E6%81%AF%E7%AB%9E%E8%B5%9B%E5%AD%A6%E5%BC%9F%E5%AD%A6%E5%A6%B9%E7%9A%84%E8%AF%9D/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="杜某某">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一无是处杜某某">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 一无是处杜某某">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/12/09/%E7%BB%99%E4%BF%A1%E6%81%AF%E7%AB%9E%E8%B5%9B%E5%AD%A6%E5%BC%9F%E5%AD%A6%E5%A6%B9%E7%9A%84%E8%AF%9D/" class="post-title-link" itemprop="url">给信息竞赛学弟学妹的话</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2016-12-09 14:34:17" itemprop="dateCreated datePublished" datetime="2016-12-09T14:34:17+08:00">2016-12-09</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="信息竞赛究竟算什么？"><a href="#信息竞赛究竟算什么？" class="headerlink" title="信息竞赛究竟算什么？"></a>信息竞赛究竟算什么？</h2><p>我认为，千万不要把信息竞赛理解成了学习计算机知识和学习C++编程语言，不要为了竞赛去看什么C++或者其他计算机技术的书。信息竞赛的本质就是应用数学。核心是数据结构与算法设计。数学能力对于信息竞赛至关重要。</p>
-<h2 id="信息竞赛该怎么学？"><a href="#信息竞赛该怎么学？" class="headerlink" title="信息竞赛该怎么学？"></a>信息竞赛该怎么学？</h2><p>首先必须要跟着教练们的课程走，慢慢学习各种算法，比如高精度，动态规划，搜索，图论等等。必须明确的是，算法并不是代码，就其本意就是“解决一种问题的方法和流程”。这其中需要对每种算法和数据结构的理解，不仅仅是局限在算法的代码表现上，就是说不要仅仅是背代码，而应该深层次地思考算法是怎么，它的抽象模型是怎么来的，你能不能给别人讲出来这个算法是怎样的。这样对竞赛不会停留在纸面和代码上，而是心中构建起算法和数据结构的模型，使能够灵活运用。如果对算法模型理解不了，就要多问老师，在草稿纸上自己画一画，推导出算法，然后记住。不然的话，永远就是学一种题型，就做一种题型，遇到新的题型就不会做。</p>
-<h2 id="信息竞赛中可能会遇到的问题？"><a href="#信息竞赛中可能会遇到的问题？" class="headerlink" title="信息竞赛中可能会遇到的问题？"></a>信息竞赛中可能会遇到的问题？</h2><p>首先一个显然的问题就是做题，很可能半天做不了一道题，看到别人都做完了，自己还没有思路。这其实很正常，某吕晓钟学长在上竞赛的时候一上午也许就只能做一道题。但是只要是自己想出来，调出来的思路和代码，就会刻骨铭心地记住。这种情况下，建议和老师一起调试，或者请求同学帮助，千万不要直接看别人的代码。</p>
-<p>第二个问题就是排行榜的问题，由于BSOJ有排行榜系统，会按照做题量排序，个人建议是不要在意这个排名系统，我们要的不是做题量而是做题的质量。</p>
-<h2 id="如何平衡竞赛与高考的关系？"><a href="#如何平衡竞赛与高考的关系？" class="headerlink" title="如何平衡竞赛与高考的关系？"></a>如何平衡竞赛与高考的关系？</h2><p>首先要心理认同，选择竞赛，就选择了放弃假期。在平时上课时间周日晚上开始到周五下午放学，这段时间就不要管竞赛的事情，上课好好听，作业好好做。到了周末就要全心全意放在竞赛上，至于周末作业嘛，人逼起来的肯定是赶得完的。个人观点，高考竞赛严格区分，做这事的时候不要做另外一样事。但是可以在没事的时候想想算法。</p>
-<p>可以把Word文档的课件打印出来，方便复习。</p>
-<h2 id="学习竞赛的进度表"><a href="#学习竞赛的进度表" class="headerlink" title="学习竞赛的进度表"></a>学习竞赛的进度表</h2><p>这个倒没什么哪个时间该学到哪个水平，跟着竞赛教练走，这个不会有多大问题。</p>
-<h2 id="到底该追求什么结果？"><a href="#到底该追求什么结果？" class="headerlink" title="到底该追求什么结果？"></a>到底该追求什么结果？</h2><p>首先最理想的情况是进入省队，在NOI中得到清华北大（或其他学校）的报送或者降分。干到这一步，就按照降分的分数线操作吧。</p>
-<p>其次是拿到省一，并且拿到北大清华（或者其他学校）的夏令营或者自主招生资格。其中，夏令营入选的希望非常大，这就需要在夏令营里面好好表现，拿到优秀营员了。然后参加自主招生，拿到降分资格。</p>
-<p>然后是没拿到降分，凭裸分考入这些大学。这样凭借竞赛基础，对计算机专业帮助非常大，C语言、C++、数据结构和算法基本都是学过的，成功当上大佬。</p>
-<p>总的来说，如果感觉自己并不是非常不适合学信息竞赛，那就坚持下去，能到哪步到哪步，不管怎样学信息竞赛的性价比都是非常大的。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
